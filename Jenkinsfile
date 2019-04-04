@@ -1,7 +1,7 @@
 node{
       
       stage('SCM Checkout'){
-         git 'https://github.com/rajnikhattarrsinha/Java-Demo-Application'
+         git 'https://github.com/albertlovescloud/Java-Demo-Application'
       }
       
       stage('Build'){
@@ -16,14 +16,14 @@ node{
       }
       
       stage('Build Docker Image'){
-         sh 'docker build -t rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
+         sh 'docker build -t albertlovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
       }  
    
       stage('Publish Docker Image'){
-         withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
-              sh "docker login -u rajnikhattarrsinha -p ${dockerPWD}"
+         withCredentials([string(credentialsId: 'dockerpwdlovescloud', variable: 'dockerPWDlovescloud')]) {
+              sh "docker login -u albertlovescloud -p ${dockerpwdlovescloud}"
          }
-        sh 'docker push rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
+        sh 'docker push albertlovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER'
         sh "sed -i.bak 's/#BUILD-NUMBER#/$BUILD_NUMBER/' deployment.yaml"
         sh "sed -i.bak 's/#JOB-NAME#/$JOB_NAME/' deployment.yaml"
       }
