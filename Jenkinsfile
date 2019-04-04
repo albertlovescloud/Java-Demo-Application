@@ -16,14 +16,14 @@ node{
       }
       
       stage('Build Docker Image'){
-         sh 'docker build -t albertlovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
+         sh 'docker build -t lovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
       }  
    
       stage('Publish Docker Image'){
          withCredentials([string(credentialsId: 'dockerpwdlovescloud', variable: 'dockerPWDlovescloud')]) {
-              sh "docker login -u albertlovescloud -p ${dockerpwdlovescloud}"
+              sh "docker login -u lovescloud -p ${dockerpwdlovescloud}"
          }
-        sh 'docker push albertlovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER'
+        sh 'docker push lovescloud/javademoapp_$JOB_NAME:$BUILD_NUMBER'
         sh "sed -i.bak 's/#BUILD-NUMBER#/$BUILD_NUMBER/' deployment.yaml"
         sh "sed -i.bak 's/#JOB-NAME#/$JOB_NAME/' deployment.yaml"
       }
