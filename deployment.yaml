@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rajni3-deployment
+  name: albert-deployment
 spec:
   selector:
     matchLabels:
-      run: rajni3-deployment
+      run: albert-deployment
   replicas: 2
   template:
     metadata:
       labels:
-        run: rajni3-deployment
+        run: albert-deployment
     spec:
       containers:
-      - name: rajni3-deployment
-        image: rajnikhattarrsinha/javademoapp_#JOB-NAME#:#BUILD-NUMBER#
+      - name: albert-deployment
+        image: lovescloud/javademoapp_#JOB-NAME#:#BUILD-NUMBER#
         ports:
         - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: rajni3-deployment
+  name: albert-deployment
   labels:
-    run: rajni3-deployment
+    run: albert-deployment
 spec:
   type: NodePort
   ports:
   - port: 8080
     protocol: TCP
   selector:
-    run: rajni3-deployment
+    run: albert-deployment
